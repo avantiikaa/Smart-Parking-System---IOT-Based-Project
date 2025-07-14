@@ -51,7 +51,24 @@ This project implements a smart parking solution using NodeMCU ESP8266, IR senso
 
 - Create a new channel with 5 fields (Field1 to Field5).
 - Copy your API key and paste into the code.
+ ThingSpeak Setup
+Follow these steps in ThingSpeak:
 
+Go to ThingSpeak and create an account.
+
+Click Channels > New Channel.
+
+Name your channel (e.g., Smart Parking).
+
+Enable 5 fields (e.g., Slot 1, Slot 2, Slot 3, Slot 4, Slot 5).
+
+Click Save Channel.
+
+Go to API Keys tab.
+
+Copy your Write API Key (for NodeMCU to send data).
+
+Copy your Read API Key (for HTML page to fetch data)
 ## Working Principle
 
 - IR sensors detect slot occupancy.

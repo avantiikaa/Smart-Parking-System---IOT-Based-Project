@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Smart Parking Status</title>
+  <style>
+    body { font-family: Arial; background: #f5f5f5; text-align: center; padding: 20px; }
+    h1 { color: #333; }
+    .slot {
+      display: inline-block;
+      margin: 10px;
+      padding: 15px;
+      border-radius: 6px;
+      width: 120px;
+      color: white;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .available { background-color: #4CAF50; }
+    .occupied { background-color: #F44336; }
+  </style>
+</head>
+<body>
+  <h1>Smart Parking Status</h1>
+  <div id="slots"></div>
+  <script>
+    const apiKey = "YOUR_THINGSPEAK_READ_API_KEY";
+    const channelId = "YOUR_CHANNEL_ID";
+
+    async function fetchStatus() {
+      const url = `https://api.thingspeak.com/channels/${channelId}/feeds/last.json?api_key=${apiKey}`;
+      const response = await fetch(url);
+      const data = await response.json();
+
+      const slotsDiv = document.getElementById("slots");
+      slotsDiv.innerHTML = "";
+
+      for (let i = 1; i <= 5; i++) {
+        const state = data[`field${i}`];
+        const div = document.createElement("div");
+        div.className = "slot " + (state == "1" ? "available" : "occupied");
+        div.innerText = `Slot ${i}\n${state == "1" ? "Available" : "Occupied"}`;
+        slotsDiv.appendChild(div);
+      }
+    }
+
+    fetchStatus();
+    setInterval(fetchStatus, 5000); // Update every 5 sec
+  </script>
+</body>
+</html>
